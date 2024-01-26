@@ -15,6 +15,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: localhost
+  port: 5432
+  username: ito
+  password: rankora8205
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -22,7 +26,7 @@ default: &default
 development:
   <<: *default
   database: simple_map_development
-  username: simple_map
+  username: ito
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
   host: localhost
 
@@ -59,7 +63,7 @@ development:
 test:
   <<: *default
   database: simple_map_test
-  username: simple_map
+  username: ito
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
   host: localhost
 
@@ -86,5 +90,5 @@ test:
 production:
   <<: *default
   database: simple_map_production
-  username: simple_map
-  password: <%= ENV["SIMPLE_MAP_DATABASE_PASSWORD"] %>
+  username: ito
+  password: <%= ENV['DATABASE_PASSWORD'] %>

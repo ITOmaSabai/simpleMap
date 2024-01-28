@@ -1,6 +1,7 @@
 <h2>gmap</h2>
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="Encode" onclick="codeAddress()">
+
+<%= text_field_tag :address, 'GeekSalon', id: 'address' %>
+<%= button_tag 'Encode', type: 'button', onclick: 'codeAddress()' %>
 <div id='map'></div>
 
 <style>

@@ -1,7 +1,9 @@
 <h2>gmap</h2>
 
-<%= text_field_tag :address, 'GeekSalon', id: 'address' %>
+<%= text_field_tag :address, 'Place?', id: 'address' %>
 <%= button_tag 'Encode', type: 'button', onclick: 'codeAddress()' %>
+<div id="display"></div>
+
 <div id='map'></div>
 
 <style>
@@ -29,6 +31,7 @@ function initMap(){
 }
 
 let geocoder
+const display = document.getElementById('display')
 
 function codeAddress(){
   let inputAddress = document.getElementById('address').value;
@@ -40,6 +43,7 @@ function codeAddress(){
           map: map,
           position: results[0].geometry.location
       });
+      display.textContent = "検索結果：" + results[ 0 ].geometry.location
     } else {
       alert('該当する結果がありませんでした：' + status);
     }

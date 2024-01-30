@@ -11,8 +11,44 @@
 <style>
 #map {
   height: 600px;
-  width: 600px;
+  width: 1200px;
 }
 </style>
+<script>
+let map;
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBH1LEotlMO-NSfYOFW0LKXBD_2PUUYDo&callback=initMap" async defer></script>
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 40.7828, lng:-73.9653},
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat: 40.7828, lng:-73.9653},
+    map: map
+  });
+}
+
+let geocoder;
+const display = document.getElementById('display')
+
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      let marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+      });
+      display.textContent = "検索結果：" + results[ 0 ].geometry.location
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });   
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzIE0UZtSFmwfG5B5NztHGS4Qc2osOXak&callback=initMap" async defer></script>

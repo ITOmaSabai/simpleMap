@@ -1,0 +1,20 @@
+<%= form_with model: @map, local: true do |form| %>
+  <div>
+    <%= form.label :lat, "Latitude" %>
+    <%= form.number_field :lat, step: :any %>
+  </div>
+  
+  <div>
+    <%= form.label :lng, "Longitude" %>
+    <%= form.number_field :lng, step: :any %>
+  </div>
+  
+  <div>
+    <%= form.label :text, "Description" %>
+    <%= form.text_field :text %>
+  </div>
+  
+  <div>
+    <%= form.submit "Save" %>
+  </div>
+<% end %>

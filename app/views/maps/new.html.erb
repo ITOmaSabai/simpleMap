@@ -1,20 +1,63 @@
-<%= form_with model: @map, local: true do |form| %>
-  <div>
-    <%= form.label :lat, "Latitude" %>
-    <%= form.number_field :lat, step: :any %>
-  </div>
-  
-  <div>
-    <%= form.label :lng, "Longitude" %>
-    <%= form.number_field :lng, step: :any %>
-  </div>
-  
-  <div>
-    <%= form.label :text, "Description" %>
-    <%= form.text_field :text %>
-  </div>
-  
-  <div>
-    <%= form.submit "Save" %>
-  </div>
+<%= form_with model: @map do |f| %>
+  <%= f.label :text, style: "display: block" %>
+  <%= f.text_field :text %>
+  <%= f.hidden_field :lat, id: :lat %>
+  <%= f.hidden_field :lng, id: :lng %>
+  <%= f.submit %>
 <% end %>
+
+<input id="address" type="textbox" placeholder="ピンを刺したい地名を検索">
+<input type="button" value="ピンを刺す" onclick="codeAddress()">
+<div id="map" class="form-map"></div>
+
+<style>
+
+</style>
+
+<script>
+ if (typeof map == "undefined") {
+   let map;
+   var marker;
+   var geocoder;
+   var afterPinned;
+ }
+
+ function initMap(){
+   geocoder = new google.maps.Geocoder()
+
+   map = new google.maps.Map(document.getElementById('map'),{
+     center: { lat: 35.6803997, lng: 139.7690174 },
+     zoom: 10,
+   });
+ }
+
+ function codeAddress(){
+   let inputAddress = document.getElementById('address').value;
+   geocoder.geocode( { 'address': inputAddress }, function(results, status) {
+     if (status == 'OK') {
+       if (afterPinned == true) {
+         marker.setMap(null);
+       }
+       map.setCenter(results[0].geometry.location);
+         marker = new google.maps.Marker({
+           map: map,
+           position: results[0].geometry.location,
+           draggable: true
+         });
+
+       afterPinned = true;
+
+       document.getElementById('lat').value = results[0].geometry.location.lat();
+       document.getElementById('lng').value = results[0].geometry.location.lng();
+
+       google.maps.event.addListener(marker, 'dragend', function(ev){
+         document.getElementById('lat').value = ev.latLng.lat();
+         document.getElementById('lng').value = ev.latLng.lng();
+       });
+     } else {
+       alert('該当する結果はありませんでした');
+     }
+   });
+ }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>

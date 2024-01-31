@@ -11,7 +11,7 @@ class MapsController < ApplicationController
     @map = Map.new(map_params)
     
     if @map.save
-      redirect_to @map, notice: "Map was successfully created."
+      redirect_to maps_path, notice: "Map was successfully created."
     else
       render :new, status: :unprocessable_entity
     end

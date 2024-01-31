@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+ .form-map {
+  height: 50vh;
+  width: 50%;
+ }

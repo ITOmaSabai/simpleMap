@@ -20,22 +20,24 @@ function initMap(){
 
   <% if @maps.present? %>
     <% @maps.each do |map| %>
-      (function() {
-        let markerLatLng = { lat: <%= map.lat %>, lng: <%= map.lng %> };
-        let marker = new google.maps.Marker({
-          position: markerLatLng,
-          map: map
-        });
+      <% if map.lat.present? && map.lng.present? %>
+        (function() {
+          let markerLatLng = { lat: <%= map.lat %>, lng: <%= map.lng %> };
+          let marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+          });
 
-        let infowindow = new google.maps.InfoWindow({
-          position: markerLatLng,
-          content: "<a href='<%= map_path(map.id) %>' target='_blank'><%= map.text %></a>"
-        });
-        
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-      })();  
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: "<%= map.text %>"
+          });
+          
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        })();
+      <% end %>
     <% end %>
   <% end %>
 }

@@ -1,17 +1,22 @@
-<%= form_with model: @map do |f| %>
+<input id="address" type="textbox" style="width: 15vw; margin: 10px 0;" placeholder="地名を検索">
+<input type="button" value="ピンを刺す" onclick="codeAddress()">
+
+<div id="map" class="form-map"></div>
+
+<%= form_with model: @map, id: 'map_new_form' do |f| %>
   <%= f.label :text, style: "display: block" %>
   <%= f.text_field :text %>
   <%= f.hidden_field :lat, id: :lat %>
   <%= f.hidden_field :lng, id: :lng %>
-  <%= f.submit %>
+  <%= f.submit "作成" %>
 <% end %>
 
-<input id="address" type="textbox" placeholder="ピンを刺したい地名を検索">
-<input type="button" value="ピンを刺す" onclick="codeAddress()">
-<div id="map" class="form-map"></div>
-
 <style>
-
+#map {
+  height: 70vh;
+  width: 80vw;
+  margin-bottom: 20px;
+}
 </style>
 
 <script>
@@ -21,6 +26,14 @@
    var geocoder;
    var afterPinned;
  }
+
+  document.addEventListener('DOMContentLoaded', (e) => {
+    if (afterPinned === true) {
+      document.getElementById('map_new_form').classList.remove('disabled');
+    } else {
+      document.getElementById('map_new_form').classList.add('disabled');
+    }
+  });
 
  function initMap(){
    geocoder = new google.maps.Geocoder()

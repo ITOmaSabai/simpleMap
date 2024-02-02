@@ -1,38 +1,43 @@
-<%= javascript_importmap_tags %>
-
-<h2>gmap</h2>
-
-<%= text_field_tag :address, 'Place?', id: 'address' %>
-<%= button_tag 'Encode', type: 'button', onclick: 'codeAddress()' %>
-<div id="display"></div>
-
+<h2>ジモ⚪︎ィー？</h2>
 <div id='map'></div>
 
 <style>
 #map {
-  height: 600px;
-  width: 1200px;
+  height: 80vh;
+  width: 900vw;
+  margin-bottom: 20px;
 }
 </style>
+
 <script>
-let map;
 
 function initMap(){
   geocoder = new google.maps.Geocoder()
 
   let map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7828, lng:-73.9653},
-    zoom: 12,
+    center: {lat: 37.1293, lng: 138.7559},
+    zoom: 5,
   });
 
-  <% @maps.each do |map| %>
+  <% if @maps.present? %>
+    <% @maps.each do |map| %>
       (function() {
         let markerLatLng = { lat: <%= map.lat %>, lng: <%= map.lng %> };
         let marker = new google.maps.Marker({
           position: markerLatLng,
           map: map
         });
-      })();
+
+        let infowindow = new google.maps.InfoWindow({
+          position: markerLatLng,
+          content: "<a href='<%= map_path(map.id) %>' target='_blank'><%= map.text %></a>"
+        });
+        
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      })();  
+    <% end %>
   <% end %>
 }
 let geocoder;

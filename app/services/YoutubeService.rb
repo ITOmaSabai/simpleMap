@@ -6,13 +6,18 @@ class YoutubeService
     @youtube.key = api_key
   end
 
-  def search_videos(keyword, max_results = 25)
+  def search_videos(keyword, max_results = 10)
     params = {
       q: keyword,
       type: 'video',
+      location: '#{lat}, #{lng}',
+      locationRadius: '10km',
       max_results: max_results,
+      order: viewCount,
+      safeSearch: 'moderate',
+      type: 'video',
       part: 'id,snippet',
-      fields: 'items(id,snippet(title,channel_title,thumbnails))'
+      # fields: 'items(id,snippet(title,channel_title,thumbnails))'
     }
     @youtube.list_searches(params)
   end

@@ -6,10 +6,10 @@ class YoutubeService
     @youtube.key = api_key
   end
 
-  def search_videos(keyword, lat, lng)
+  def search_videos(keyword, lat, lng, neighborhood)
     @youtube.list_searches(
         'snippet',
-        q: keyword,
+        q: neighborhood, 
         # location: "#{lat},#{lng}",
         max_results: '10',
         order: 'viewCount',

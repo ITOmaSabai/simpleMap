@@ -12,7 +12,12 @@ class MapsController < ApplicationController
     
     if @map.save
       # @videos = ::SearchService.call(keyword: params[:keyword], lat: params[:lat], lng: params[:lng])
-      SearchService.call(keyword: params[:map][:keyword], lat: @map.lat, lng: @map.lng)
+      SearchService.call(
+        keyword: params[:map][:keyword],
+        lat: @map.lat,
+        lng: @map.lng,
+        neighborhood: params[:map][:neighborhood]
+      )
 
       redirect_to maps_path, notice: "Map was successfully created."
     else

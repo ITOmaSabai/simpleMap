@@ -22,12 +22,12 @@
 </style>
 
 <script>
- if (typeof map == "undefined") {
-   let map;
-   var marker;
-   var geocoder;
-   var afterPinned;
- }
+  if (typeof map == "undefined") {
+    let map;
+    var marker;
+    var geocoder;
+    var afterPinned;
+  }
 
   document.addEventListener('DOMContentLoaded', (e) => {
     if (afterPinned === true) {
@@ -37,43 +37,49 @@
     }
   });
 
- function initMap(){
-   geocoder = new google.maps.Geocoder()
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
 
-   map = new google.maps.Map(document.getElementById('map'),{
-     center: { lat: 35.6803997, lng: 139.7690174 },
-     zoom: 10,
-   });
- }
+    map = new google.maps.Map(document.getElementById('map'),{
+      center: { lat: 35.6803997, lng: 139.7690174 },
+      zoom: 10,
+    });
+  }
 
- function codeAddress(){
-   let inputAddress = document.getElementById('address').value;
-   geocoder.geocode( { 'address': inputAddress }, function(results, status) {
+  function codeAddress(){
+    let inputAddress = document.getElementById('address').value;
+    geocoder.geocode( { 'address': inputAddress }, function(results, status) {
      if (status == 'OK') {
-       if (afterPinned == true) {
-         marker.setMap(null);
-       }
-       map.setCenter(results[0].geometry.location);
-         marker = new google.maps.Marker({
-           map: map,
-           position: results[0].geometry.location,
-           draggable: true
-         });
+        if (afterPinned == true) {
+          marker.setMap(null);
+        }
+        map.setCenter(results[0].geometry.location);
+          marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            draggable: true
+          });
 
-       afterPinned = true;
+        afterPinned = true;
+        let neighborhoodComponent = results[0].address_components.find(function (component) {
+          return component.types.includes('neighborhood');
+          console.log(types)
+        });
+        let neighborhood = neighborhoodComponent ? neighborhoodComponent.long_name : 'あああ';
 
-       document.getElementById('neighborhood').value = results[0].geometry.location.neighborhood();
-       document.getElementById('lat').value = results[0].geometry.location.lat();
-       document.getElementById('lng').value = results[0].geometry.location.lng();
+        document.getElementById('neighborhood').value = neighborhood;
 
-       google.maps.event.addListener(marker, 'dragend', function(ev){
-         document.getElementById('lat').value = ev.latLng.lat();
-         document.getElementById('lng').value = ev.latLng.lng();
-       });
-     } else {
-       alert('該当する結果はありませんでした');
-     }
-   });
+        document.getElementById('lat').value = results[0].geometry.location.lat();
+        document.getElementById('lng').value = results[0].geometry.location.lng();
+
+        google.maps.event.addListener(marker, 'dragend', function(ev){
+          document.getElementById('lat').value = ev.latLng.lat();
+          document.getElementById('lng').value = ev.latLng.lng();
+        });
+      } else {
+        alert('該当する結果はありませんでした');
+      }
+    });
  }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&libraries=places&callback=initMap" async defer></script>

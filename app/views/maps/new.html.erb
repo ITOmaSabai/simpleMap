@@ -9,7 +9,7 @@
   <%= f.text_field :keyword %>
   <%= f.hidden_field :lat, id: :lat %>
   <%= f.hidden_field :lng, id: :lng %>
-  <%= f.hidden_field :neighborhood, id: :neighborhood %>
+  <%= f.hidden_field :country, id: :country %>
   <%= f.submit "作成" %>
 <% end %>
 
@@ -61,13 +61,12 @@
           });
 
         afterPinned = true;
-        let neighborhoodComponent = results[0].address_components.find(function (component) {
-          return component.types.includes('neighborhood');
-          console.log(types)
+        let countryComponent = results[0].address_components.find(function (component) {
+          return component.types.includes('country');
         });
-        let neighborhood = neighborhoodComponent ? neighborhoodComponent.long_name : 'あああ';
+        let country = countryComponent ? countryComponent.long_name : 'あああ';
 
-        document.getElementById('neighborhood').value = neighborhood;
+        document.getElementById('country').value = country;
 
         document.getElementById('lat').value = results[0].geometry.location.lat();
         document.getElementById('lng').value = results[0].geometry.location.lng();

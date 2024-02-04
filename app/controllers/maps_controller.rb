@@ -16,7 +16,7 @@ class MapsController < ApplicationController
         keyword: params[:map][:keyword],
         lat: @map.lat,
         lng: @map.lng,
-        neighborhood: params[:map][:neighborhood]
+        neighborhood: params[:map][:country]
       )
 
       redirect_to maps_path, notice: "Map was successfully created."

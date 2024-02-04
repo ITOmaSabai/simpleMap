@@ -9,7 +9,7 @@ class YoutubeService
   def search_videos(keyword, lat, lng, neighborhood)
     @youtube.list_searches(
         'snippet',
-        q: neighborhood, 
+        q: "#{neighborhood} #{keyword}",
         # location: "#{lat},#{lng}",
         max_results: '10',
         order: 'viewCount',

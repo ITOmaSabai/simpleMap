@@ -10,14 +10,11 @@ class YoutubeService
     @youtube.list_searches(
         'snippet',
         q: keyword,
-        location: "#{lat}, #{lng}",
+        # location: "#{lat},#{lng}",
         max_results: '10',
         order: 'viewCount',
         type: 'video'
         # fields: 'items(id,snippet(title,channel_title,thumbnails))'
     )
-    # ログにparamsの内容を出力
-    Rails.logger.info "YouTube API Search Params: #{params.inspect}"
-
   end
 end

@@ -1,6 +1,5 @@
 class SearchService
   def self.call(keyword:, lat:, lng:)
-    # keyword = params[:keyword]
     youtube_service = YoutubeService.new(api_key: ENV['GOOGLE_MAP_API_KEY'])
     @videos = youtube_service.search_videos(keyword, lat, lng)
   rescue Google::Apis::Error => e

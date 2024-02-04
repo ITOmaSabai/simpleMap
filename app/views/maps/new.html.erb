@@ -8,6 +8,7 @@
   <%= f.text_field :text %>
   <%= f.hidden_field :lat, id: :lat %>
   <%= f.hidden_field :lng, id: :lng %>
+  <%= f.hidden_field :neighborhood, id: :neighborhood %>
   <%= f.submit "作成" %>
 <% end %>
 
@@ -60,6 +61,7 @@
 
        afterPinned = true;
 
+       document.getElementById('neighborhood').value = results[0].geometry.location.neighborhood();
        document.getElementById('lat').value = results[0].geometry.location.lat();
        document.getElementById('lng').value = results[0].geometry.location.lng();
 

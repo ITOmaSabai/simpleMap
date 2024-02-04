@@ -6,6 +6,7 @@
 <%= form_with model: @map, id: 'map_new_form' do |f| %>
   <%= f.label :text, style: "display: block" %>
   <%= f.text_field :text %>
+  <%= f.text_field :keyword %>
   <%= f.hidden_field :lat, id: :lat %>
   <%= f.hidden_field :lng, id: :lng %>
   <%= f.hidden_field :neighborhood, id: :neighborhood %>

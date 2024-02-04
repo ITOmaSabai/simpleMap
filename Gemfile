@@ -69,3 +69,4 @@ end
 gem "tailwindcss-rails", "~> 2.3"
 gem 'sorcery'
 gem 'dotenv-rails'
+gem 'google-api-client'

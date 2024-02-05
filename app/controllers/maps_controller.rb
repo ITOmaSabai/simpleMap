@@ -19,11 +19,12 @@ class MapsController < ApplicationController
         neighborhood: params[:map][:country]
       )
 
-      videos_data.each do |video_data|
+      videos_data.items.each do |video_data|
         @map.videos.create(
-          youtube_video_id: video_data[:youtube_video_id],
-          thumbnail_url: video_data[:thumbnail_url]
+          youtube_video_id: video_data.id.video_id,
+          thumbnail_url: video_data.snippet.thumbnails.high.url
         )
+      end
 
       redirect_to maps_path, notice: "Map was successfully created."
     else

@@ -32,6 +32,11 @@ class MapsController < ApplicationController
     end
   end
 
+  def show
+    @map = Map.includes(:videos).find(params[:id])
+    @videos = @map.videos
+  end
+
   private
 
   def map_params

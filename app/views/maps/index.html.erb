@@ -30,7 +30,7 @@ function initMap(){
 
           let infowindow = new google.maps.InfoWindow({
             position: markerLatLng,
-            content: "<%= map.text %>"
+            content: "<a href='<%= map_path(map) %>' target='_blank' ><%= map.text %></a>"
           });
           
           marker.addListener('click', function() {

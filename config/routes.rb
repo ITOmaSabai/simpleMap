@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  root "maps#index"
   get 'staticpages/top'
-  root "staticpages#top"
   resources :users
   resources :maps
   resources :videos

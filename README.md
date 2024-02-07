@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## issues
+- [ ] Map読み込み不具合(Turboの無効化)
+- [ ] importmapを用いてのJSの読み込み

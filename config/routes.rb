@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  root "maps#index"
-  get 'staticpages/top'
-  resources :users
-  resources :maps
-  resources :videos
+  # root "maps#index"
+
+  namespace :api do
+    namespace :v1 do
+      resources :maps
+      resources :videos
+    end
+  end
+  # get 'staticpages/top'
+  # resources :users
+  # resources :maps
+  # resources :videos
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

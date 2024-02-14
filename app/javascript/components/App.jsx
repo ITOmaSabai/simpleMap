@@ -2,16 +2,14 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from './HomePage';
-import AboutPage from './AboutPage';
 
 function App() {
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/about" component={AboutPage} />
+          <Route path="/" exact component={Index} />
+          <Route path="/about" component={Index} />
         </Switch>
       </div>
     </Router>

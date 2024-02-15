@@ -1,7 +1,6 @@
-// 例えば、app/frontend/components/App.js にこのファイルがあるとする
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Index from '../maps/Index';
 
 function App() {
   return (

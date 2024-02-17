@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Index from '../maps';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Index from '../maps/Index';
 
 function App() {
   return (
     <Router>
       <div>
-        <Switch>
-          <Route path="/" exact component={Index} />
-          <Route path="/about" component={Index} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<Index />} />
+        </Routes>
       </div>
     </Router>
   );

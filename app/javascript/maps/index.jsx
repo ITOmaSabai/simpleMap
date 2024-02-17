@@ -1,7 +1,4 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 
 const Index = () => {
   const [maps, setMaps] = useState([]);
@@ -55,7 +52,9 @@ const Index = () => {
 
   return (
     <div>
+      Hello Index
       <div id="map" style={{ height: '80vh', width: '90vw', marginBottom: '20px' }}>
+        Hello Index
       </div>
     </div>
   );

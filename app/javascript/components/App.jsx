@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Index from '../maps/Index';
+import Index from '../maps';
 
 function App() {
   return (

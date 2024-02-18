@@ -1,4 +1,4 @@
-class Api::V1::MapsCOntroller < ApplicationController
+class Api::V1::MapsController < ApplicationController
   def index
     @maps = Map.where.not(lat: nil, lng: nil)
     render json: @maps

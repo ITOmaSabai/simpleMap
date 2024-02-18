@@ -1,8 +1,9 @@
 const path    = require("path")
 const webpack = require("webpack")
+require('dotenv').config(); // 環境変数を読み込む
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   devtool: "source-map",
   entry: {
     application: "./app/javascript/application.js"
@@ -16,6 +17,10 @@ module.exports = {
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
+    }),
+
+    new webpack.DefinePlugin({
+      'process.env.GOOGLE_MAP_API_KEY': JSON.stringify(process.env.GOOGLE_MAP_API_KEY),
     })
   ],
   module: {

@@ -30,36 +30,36 @@ const Index = () => {
         center: {lat: 37.1293, lng: 138.7559},
         zoom: 2,
       });
+
+      if (maps.length > 0) {
+        maps.forEach(mapData => {
+          let markerLatLng = { lat: mapData.lat, lng: mapData.lng };
+          let marker = new google.maps.Marker({
+            position: markerLatLng,
+            map: map
+          });
+          
+          let infowindow = new google.maps.InfoWindow({
+            position: markerLatLng,
+            content: `<a href='/maps/${mapData.id}' target='_blank' >${mapData.text}</a>`
+          });
+                      
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
     };
 
     window.initMap = initMap;
     const script = loadMapScript(); 
-    
 
-    if (maps.length > 0) {
-      maps.forEach(mapData => {
-        let markerLatLng = { lat: mapData.lat, lng: mapData.lng };
-        let marker = new google.maps.Marker({
-          position: markerLatLng,
-          map: map
-        });
-        
-        let infowindow = new google.maps.InfoWindow({
-          position: markerLatLng,
-          content: `<a href='/maps/${mapData.id}' target='_blank' >${mapData.text}</a>`
-        });
-                    
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
-      });
-    }
     // クリーンアップ関数
     return () => {
       window.initMap = null; // initMapをnullに設定
       script.remove(); // scriptタグを削除
     };
-  }, [maps]); // mapsが変更されたら、このuseEffectを再実行する
+  }, []);
 
   return (
     <div>

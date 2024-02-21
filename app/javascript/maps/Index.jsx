@@ -12,14 +12,20 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    const loadMapScript = () => {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script); 
+    const loadMapScript = () => { 
+      const scriptId = 'map'; // スクリプトに設定するID
+      if (!document.getElementById(scriptId)) { // IDをもとにスクリプトが存在するかチェック
+        const script = document.createElement('script');
+        script.id = scriptId; // スクリプトにIDを設定
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&callback=initMap`;
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script); 
 
-      return script;
+        return script;
+      } else {
+        return document.getElementById(scriptId);
+      }
     };
 
     let map;
@@ -54,9 +60,8 @@ const Index = () => {
     window.initMap = initMap;
     const script = loadMapScript(); 
 
-    クリーンアップ関数
     return () => {
-      window.initMap = null; // initMapをnullに設定
+      delete window.initMap; // initMapをnullに設定
       script.remove(); // scriptタグを削除
     };
   }, []);
